@@ -115,16 +115,18 @@ function share(entry: SpaceEntry): number {
   return props.total > 0 ? (entry.size / props.total) * 100 : 0;
 }
 
-function shape(tile: Tile): { x: number; y: number; w: number; h: number } {
-  return { x: tile.x, y: tile.y, w: tile.w, h: tile.h };
+// SVG rects take `width`/`height`; binding `w`/`h` left every tile at 0×0,
+// which is why the treemap painted as an empty grey box.
+function shape(tile: Tile): { x: number; y: number; width: number; height: number } {
+  return { x: tile.x, y: tile.y, width: tile.w, height: tile.h };
 }
 
-function clipRect(tile: Tile): { x: number; y: number; w: number; h: number } {
+function clipRect(tile: Tile): { x: number; y: number; width: number; height: number } {
   return {
     x: tile.x + 3,
     y: tile.y + 2,
-    w: Math.max(0, tile.w - 6),
-    h: Math.max(0, tile.h - 4),
+    width: Math.max(0, tile.w - 6),
+    height: Math.max(0, tile.h - 4),
   };
 }
 
