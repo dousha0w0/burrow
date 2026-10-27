@@ -1,0 +1,189 @@
+/*
+ * Design tokens, carried over from DriveDesk so Burrow reads as a sibling app:
+ * one neutral workbench palette, three installable skins, three corner sets.
+ * Everything the UI paints reads from here — no component owns a colour literal.
+ */
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-selection: var(--selection);
+  --color-chrome: var(--chrome);
+  --color-gutter: var(--gutter);
+
+  --radius-sm: var(--dr-sm);
+  --radius-md: var(--dr-md);
+  --radius-lg: var(--dr-lg);
+  --radius-xl: var(--dr-xl);
+}
+
+:root {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #18181b;
+  --primary-foreground: #fafafa;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #27272a;
+  --muted: #f4f5f7;
+  --muted-foreground: #71717a;
+  --accent: #eef0f4;
+  --accent-foreground: #18181b;
+  --border: #e3e5e9;
+  --input: #d9dce1;
+  --ring: #a1a1aa;
+  --destructive: #dc2626;
+  --success: #15803d;
+  --warning: #b45309;
+  --selection: #e4ebf8;
+  --sidebar: #f7f8fa;
+  --sidebar-border: #e6e8ec;
+  --sidebar-foreground: #3f3f46;
+  --chrome: #f1f3f7;
+  --gutter: #e7eaf0;
+  --content: #ffffff;
+
+  /* Data series: muted enough to sit under text, distinct enough for a treemap. */
+  --c1: #6f8fc4;
+  --c2: #7fa88a;
+  --c3: #c49b6f;
+  --c4: #a585b8;
+  --c5: #6fa6ad;
+  --c6: #b98b8b;
+
+  --dr-sm: 5px;
+  --dr-md: 7px;
+  --dr-lg: 10px;
+  --dr-xl: 14px;
+  --dr-row: 30px;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #16181c;
+  --foreground: #e6e7ea;
+  --card: #1b1d22;
+  --card-foreground: #e6e7ea;
+  --popover: #1e2026;
+  --popover-foreground: #e6e7ea;
+  --primary: #e6e7ea;
+  --primary-foreground: #14161a;
+  --secondary: #23262c;
+  --secondary-foreground: #d9dbe0;
+  --muted: #22252b;
+  --muted-foreground: #9aa0a6;
+  --accent: #262a31;
+  --accent-foreground: #e6e7ea;
+  --border: #2b2f37;
+  --input: #353a43;
+  --ring: #616a78;
+  --destructive: #f87171;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --selection: #24303f;
+  --sidebar: #101216;
+  --sidebar-border: #24272d;
+  --sidebar-foreground: #c9ccd2;
+  --chrome: #191c21;
+  --gutter: #0e1013;
+  --content: #16181c;
+
+  --c1: #7d9bd0;
+  --c2: #8ab695;
+  --c3: #d0a879;
+  --c4: #b493c7;
+  --c5: #7db4bb;
+  --c6: #c79999;
+}
+
+/* Installable palettes: only the chrome/accent layer moves, text contrast is
+ * preserved because every derived surface still comes from the same tokens. */
+html.palette-graphite {
+  --primary: #0f172a;
+  --accent: #eceff4;
+  --chrome: #eceff4;
+  --gutter: #dfe4ea;
+  --sidebar: #f4f6f9;
+}
+html.palette-graphite.dark {
+  --primary: #dbe3f0;
+  --primary-foreground: #0b1220;
+  --accent: #232a35;
+  --chrome: #1a1f27;
+  --gutter: #0d1117;
+  --sidebar: #12161d;
+  --border: #2a313c;
+}
+
+html.palette-vscode {
+  --primary: #0066bf;
+  --primary-foreground: #ffffff;
+  --accent: #e8eef6;
+  --ring: #0066bf;
+  --chrome: #e8e8e8;
+  --gutter: #dcdcdc;
+  --sidebar: #f3f3f3;
+  --border: #d4d4d4;
+}
+html.palette-vscode.dark {
+  --background: #1e1e1e;
+  --foreground: #d4d4d4;
+  --card: #252526;
+  --popover: #252526;
+  --primary: #4daafc;
+  --primary-foreground: #0b1a26;
+  --accent: #2d2d30;
+  --muted: #2a2a2b;
+  --muted-foreground: #9d9d9d;
+  --border: #3c3c3c;
+  --input: #3a3a3a;
+  --ring: #0078d4;
+  --sidebar: #1b1b1c;
+  --chrome: #262626;
+  --gutter: #141414;
+  --content: #1e1e1e;
+  --selection: #04395e;
+}
+
+html[data-corners="small"] {
+  --dr-sm: 3px;
+  --dr-md: 4px;
+  --dr-lg: 6px;
+  --dr-xl: 8px;
+}
+html[data-corners="none"] {
+  --dr-sm: 0px;
+  --dr-md: 0px;
+  --dr-lg: 0px;
+  --dr-xl: 0px;
+}
+
+html[data-density="compact"] {
+  --dr-row: 26px;
+}

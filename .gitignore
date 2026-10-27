@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+tests/tmp-*
+src-tauri/target/
+src-tauri/engine/
+src-tauri/gen/
+coverage/
