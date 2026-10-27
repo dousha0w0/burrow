@@ -1,8 +1,8 @@
 {
   "name": "burrow",
   "private": true,
-  "version": "0.1.0",
-  "description": "Burrow — a native macOS desktop workbench for the Mole cleaner engine",
+  "version": "0.1.1",
+  "description": "Burrow \u2014 a native macOS desktop workbench for the Mole cleaner engine",
   "type": "module",
   "license": "GPL-3.0-only",
   "scripts": {
@@ -37,6 +37,8 @@
     "vue-tsc": "^3"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

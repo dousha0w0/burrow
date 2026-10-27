@@ -1,6 +1,6 @@
 export type ViewId = "overview" | "space" | "clean" | "history" | "apps" | "settings";
 
-export type TerminalCommand = "clean" | "purge" | "uninstall" | "optimize";
+export type TerminalCommand = "clean" | "purge" | "uninstall" | "optimize" | "update";
 
 export interface Toast {
   id: number;

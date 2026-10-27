@@ -59,6 +59,7 @@ const counts = computed<Partial<Record<ViewId, string>>>(() => ({
           {{ engine.info ? `Mole ${engine.version}` : $t("common.engineMissingHint") }}
         </div>
       </div>
+      <Icon v-if="!engine.healthy" name="alert" :size="13" class="text-warning" :title="$t('settings.checks')" />
       <Icon name="settings" :size="14" class="text-muted-foreground" />
     </button>
 

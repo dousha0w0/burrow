@@ -8,6 +8,7 @@ import type {
   SpaceReport,
   StatusSnapshot,
 } from "@/types/mole";
+import type { EnvironmentReport, UpdateReport } from "@/types/diagnostics";
 import type { TerminalCommand } from "@/types/ui";
 import { mockApi, mockListen } from "./mock";
 
@@ -82,6 +83,15 @@ export const api = {
   },
   uiReady(): Promise<void> {
     return IS_MOCK ? Promise.resolve() : call<void>("ui_ready");
+  },
+  environmentReport(): Promise<EnvironmentReport> {
+    return IS_MOCK ? mockApi.environmentReport() : call<EnvironmentReport>("environment_report");
+  },
+  checkUpdates(): Promise<UpdateReport> {
+    return IS_MOCK ? mockApi.checkUpdates() : call<UpdateReport>("check_updates");
+  },
+  openPrivacySettings(): Promise<void> {
+    return IS_MOCK ? Promise.resolve() : call<void>("open_privacy_settings");
   },
 };
 

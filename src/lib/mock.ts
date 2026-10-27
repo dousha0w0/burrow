@@ -13,7 +13,9 @@ import type {
   StatusSnapshot,
 } from "@/types/mole";
 import type { TerminalCommand } from "@/types/ui";
+import { version as appVersion } from "../../package.json";
 import { EVENTS, type RunExitEvent, type RunLogEvent } from "./bridge";
+import type { EnvironmentReport, UpdateReport } from "@/types/diagnostics";
 
 const HOME = "/Users/ray";
 const GIB = 1024 ** 3;
@@ -348,5 +350,52 @@ export const mockApi = {
   },
   terminalRun(_kind: TerminalCommand, _target?: string): Promise<void> {
     return Promise.resolve();
+  },
+  environmentReport(): Promise<EnvironmentReport> {
+    return Promise.resolve({
+      install: { appPath: "/Applications/Burrow.app", inApplications: true, quarantined: false },
+      engine: {
+        ok: true,
+        source: "bundled",
+        version: "1.64.0",
+        root: "/mock/engine",
+        entry: "/mock/engine/mo",
+        checks: [
+          { id: "entry", ok: true, detail: "/mock/engine/mo" },
+          { id: "library", ok: true, detail: "/mock/engine/lib" },
+          { id: "binaries", ok: true, detail: "/mock/engine/bin" },
+          { id: "version", ok: true, detail: "1.64.0" },
+          { id: "runner", ok: true, detail: null },
+        ],
+      },
+      permissions: {
+        fullDiskAccess: false,
+        probes: [
+          { path: "~/Library/Application Support/com.apple.TCC/TCC.db", readable: false },
+          { path: "/Library/Application Support/com.apple.TCC/TCC.db", readable: false },
+          { path: "~/Library/Mail", readable: false },
+          { path: "~/Library/Safari", readable: false },
+        ],
+      },
+    });
+  },
+  checkUpdates(): Promise<UpdateReport> {
+    return Promise.resolve({
+      engine: {
+        current: "1.64.0",
+        latest: "1.64.0",
+        updateAvailable: false,
+        url: "https://github.com/tw93/Mole/releases",
+        error: null,
+      },
+      app: {
+        current: appVersion,
+        latest: appVersion,
+        updateAvailable: false,
+        url: "https://github.com/dousha0w0/burrow/releases",
+        error: null,
+      },
+      checkedAt: Math.floor(Date.now() / 1000),
+    });
   },
 };

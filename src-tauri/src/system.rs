@@ -48,6 +48,7 @@ pub async fn terminal_run(
     match kind.as_str() {
         "clean" => script.push_str(&format!("{entry} clean\n")),
         "purge" => script.push_str(&format!("{entry} purge\n")),
+        "update" => script.push_str(&format!("{entry} update\n")),
         "optimize" => script.push_str(&format!("{entry} optimize\n")),
         "uninstall" => {
             let name = target.ok_or_else(|| "缺少应用名".to_string())?;
@@ -69,6 +70,26 @@ pub async fn terminal_run(
         .spawn()
         .map(|_| ())
         .map_err(|error| format!("无法打开终端：{error}"))
+}
+
+/// Deep-link to the Full Disk Access pane; the scheme differs before Sonoma.
+#[tauri::command]
+pub fn open_privacy_settings() -> Result<(), String> {
+    let panes = [
+        "x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_AllFiles",
+        "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles",
+    ];
+    for pane in panes {
+        let ok = std::process::Command::new("open")
+            .arg(pane)
+            .status()
+            .map(|status| status.success())
+            .unwrap_or(false);
+        if ok {
+            return Ok(());
+        }
+    }
+    Err("无法打开系统设置的隐私页面".to_string())
 }
 
 #[tauri::command]

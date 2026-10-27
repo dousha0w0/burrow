@@ -73,6 +73,15 @@ function onKeydown(event: KeyboardEvent): void {
 onMounted(async () => {
   window.addEventListener("keydown", onKeydown);
   void api.uiReady();
+  void engine.loadEnvironment().then(() => {
+    const env = engine.environment;
+    if (!env) return;
+    const failed = env.engine.checks.filter((item) => !item.ok).map((item) => item.id);
+    void api.logMessage(
+      "info",
+      `environment install=${env.install.appPath} inApplications=${env.install.inApplications} quarantined=${env.install.quarantined} engine=${env.engine.ok ? "ok" : `failed:${failed.join(",")}`} fda=${env.permissions.fullDiskAccess}`,
+    );
+  });
   void engine.load().then(() => {
     const info = engine.info;
     if (info) void api.logMessage("info", `engine ${info.source} ${info.version} @ ${info.entry}`);

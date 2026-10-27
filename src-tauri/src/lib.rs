@@ -1,3 +1,4 @@
+mod diagnostics;
 mod engine;
 mod process;
 mod query;
@@ -31,6 +32,8 @@ pub fn run() {
             system::terminal_run,
             system::log_message,
             system::ui_ready,
+            diagnostics::environment_report,
+            diagnostics::check_updates,
         ])
         .build(tauri::generate_context!())
         .expect("error while building burrow")

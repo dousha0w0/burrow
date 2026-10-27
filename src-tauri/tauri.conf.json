@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Burrow",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "identifier": "com.dousha.burrow",
   "build": {
     "frontendDist": "../dist",
@@ -23,7 +23,10 @@
         "fullscreen": false,
         "titleBarStyle": "Overlay",
         "hiddenTitle": true,
-        "trafficLightPosition": { "x": 16, "y": 18 },
+        "trafficLightPosition": {
+          "x": 16,
+          "y": 18
+        },
         "acceptFirstMouse": true
       }
     ],
@@ -33,11 +36,14 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["app", "dmg"],
+    "targets": [
+      "app",
+      "dmg"
+    ],
     "category": "Utility",
     "shortDescription": "Clean, analyze and monitor your Mac with the Mole engine",
     "longDescription": "Burrow is a native macOS front end for the open-source Mole engine. It bundles a pinned Mole build, so cleanup, disk analysis and live system monitoring run entirely on this Mac.",
-    "copyright": "GPL-3.0 · engine by tw93/Mole",
+    "copyright": "GPL-3.0 \u00b7 engine by tw93/Mole",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
