@@ -1,7 +1,7 @@
 {
   "name": "burrow",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Burrow \u2014 a native macOS desktop workbench for the Mole cleaner engine",
   "type": "module",
   "license": "GPL-3.0-only",

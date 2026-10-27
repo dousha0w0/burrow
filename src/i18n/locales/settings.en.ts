@@ -41,7 +41,9 @@ export default {
   installPath: "App location",
   inApplications: "In /Applications",
   notInApplications: "Not in /Applications",
-  quarantined: "Quarantine flag set",
-  notQuarantined: "No quarantine flag",
+  quarantineFlag: "Quarantine flag",
+  quarantined: "Set",
+  notQuarantined: "None",
   installHint: "Move the app out of the DMG into /Applications; the flag clears after opening it via right-click → Open.",
+  privacyOpened: "System Settings opened: Privacy & Security → Full Disk Access, enable Burrow",
 };

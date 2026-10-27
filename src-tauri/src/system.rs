@@ -89,7 +89,16 @@ pub fn open_privacy_settings() -> Result<(), String> {
             return Ok(());
         }
     }
-    Err("无法打开系统设置的隐私页面".to_string())
+    // Last resort: at least land the user in System Settings.
+    let opened = std::process::Command::new("open")
+        .args(["-b", "com.apple.systempreferences"])
+        .status()
+        .map(|status| status.success())
+        .unwrap_or(false);
+    if opened {
+        return Ok(());
+    }
+    Err("无法打开系统设置：请手动进入「隐私与安全性 → 完整磁盘访问」".to_string())
 }
 
 #[tauri::command]

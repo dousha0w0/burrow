@@ -1,6 +1,6 @@
 [package]
 name = "burrow"
-version = "0.1.1"
+version = "0.1.2"
 description = "A macOS workbench for the Mole cleaner engine"
 authors = ["dousha0w0"]
 license = "GPL-3.0-only"

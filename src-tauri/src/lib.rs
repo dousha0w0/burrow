@@ -32,6 +32,7 @@ pub fn run() {
             system::terminal_run,
             system::log_message,
             system::ui_ready,
+            system::open_privacy_settings,
             diagnostics::environment_report,
             diagnostics::check_updates,
         ])

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2
+
+- **修复**：设置页「打开系统设置」按钮点了没反应。原因是 `open_privacy_settings` 没有注册进 Tauri 的 `generate_handler!`，webview 侧收到 `Command open_privacy_settings not found` 又被静默吞掉。
+  - 命令已注册；失败现在会弹 Toast 并写入 `~/Library/Logs/Burrow/burrow.log`，不再无声。
+  - 成功打开后提示路径：隐私与安全性 → 完整磁盘访问。
+  - 深链失败时回退到直接打开系统设置本体。
+  - 新增契约测试：`src/lib/bridge.ts` 里所有 `call("…")` 必须都能在 `generate_handler!` 中找到，防止同类遗漏。
+
 ## 0.1.1
 
 - **自检**：设置页新增「引擎完整性」——入口脚本、运行库、`status-go` / `analyze-go`、版本探测、`--help` 启动自检；任一失败会在侧栏给出提示。

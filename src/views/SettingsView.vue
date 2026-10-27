@@ -100,16 +100,28 @@ function openMole(): void {
   void api.openExternal("https://github.com/tw93/Mole");
 }
 
+function report(error: unknown): void {
+  const message = error instanceof Error ? error.message : String(error);
+  ui.toast(message, "error");
+  void api.logMessage("error", `settings action failed: ${message}`);
+}
+
 function openRelease(url: string | null): void {
-  if (url) void api.openExternal(url);
+  if (!url) return;
+  void api.openExternal(url).catch(report);
 }
 
 function updateEngine(): void {
-  void api.terminalRun("update");
+  void api.terminalRun("update").catch(report);
 }
 
-function openPrivacy(): void {
-  void api.openPrivacySettings();
+async function openPrivacy(): Promise<void> {
+  try {
+    await api.openPrivacySettings();
+    ui.toast(t("settings.privacyOpened"), "success");
+  } catch (error) {
+    report(error);
+  }
 }
 
 function refreshAll(): void {
@@ -431,7 +443,7 @@ function updateTone(row: UpdateRow): "success" | "warning" | undefined {
                 <span class="break-all font-mono text-[11px]">{{ engine.environment?.install.appPath ?? "—" }}</span>
               </div>
               <div class="flex items-center justify-between gap-3">
-                <span class="text-[11.5px] text-muted-foreground">{{ $t("settings.quarantined") }}</span>
+                <span class="text-[11.5px] text-muted-foreground">{{ $t("settings.quarantineFlag") }}</span>
                 <span
                   class="badge"
                   :data-tone="engine.environment?.install.quarantined ? 'warning' : 'success'"

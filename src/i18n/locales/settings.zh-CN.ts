@@ -41,7 +41,9 @@ export default {
   installPath: "应用位置",
   inApplications: "位于「应用程序」",
   notInApplications: "不在「应用程序」文件夹",
-  quarantined: "带有隔离标记",
-  notQuarantined: "无隔离标记",
+  quarantineFlag: "隔离标记",
+  quarantined: "有",
+  notQuarantined: "无",
   installHint: "从 DMG 直接运行建议拖入「应用程序」；隔离标记在右键「打开」后自动清除。",
+  privacyOpened: "已打开系统设置：隐私与安全性 → 完整磁盘访问，勾选 Burrow",
 };
