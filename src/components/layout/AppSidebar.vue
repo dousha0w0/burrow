@@ -9,6 +9,7 @@ import { useUiStore } from "@/stores/ui";
 import type { ViewId } from "@/types/ui";
 
 const ui = useUiStore();
+const version = __APP_VERSION__;
 const engine = useEngineStore();
 const history = useHistoryStore();
 const apps = useAppsStore();
@@ -64,7 +65,7 @@ const counts = computed<Partial<Record<ViewId, string>>>(() => ({
     <div class="flex-1" />
 
     <div class="px-3 pb-3 text-[10.5px] leading-relaxed text-muted-foreground/80">
-      <div>Burrow 0.1.0</div>
+      <div>Burrow {{ version }}</div>
       <div>GPL-3.0 · Mole by tw93</div>
     </div>
   </aside>

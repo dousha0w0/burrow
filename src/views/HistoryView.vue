@@ -23,7 +23,8 @@ function reveal(path: string | undefined): void {
 }
 
 onMounted(() => {
-  if (!history.report) void history.load();
+  // Re-read on every visit: a clean run from another view changes these rows.
+  void history.load();
 });
 
 watch(
