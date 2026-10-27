@@ -108,14 +108,14 @@ let jitter = 0;
 const overviewEntries: SpaceEntry[] = [
   { name: "Home", path: `${HOME}`, size: 129.3 * GIB, is_dir: true, scan_status: "complete" },
   { name: "Applications", path: "/Applications", size: 42.2 * GIB, is_dir: true, scan_status: "complete" },
+  { name: "User Library", path: `${HOME}/Library`, size: 39.8 * GIB, is_dir: true, scan_status: "complete" },
+  { name: "pnpm store", path: `${HOME}/Library/pnpm/store`, size: 8.0 * GIB, is_dir: true, scan_status: "complete", insight: true },
   { name: "uv Cache", path: `${HOME}/.cache/uv`, size: 2.9 * GIB, is_dir: true, scan_status: "complete", insight: true, cleanable: true },
   { name: "System Library", path: "/Library", size: 2.3 * GIB, is_dir: true, scan_status: "partial" },
   { name: "Docker Data", path: `${HOME}/Library/Containers/com.docker.docker/Data`, size: 1.8 * GIB, is_dir: true, scan_status: "complete", insight: true, cleanable: true },
   { name: "JetBrains Cache", path: `${HOME}/Library/Caches/JetBrains`, size: 1.3 * GIB, is_dir: true, scan_status: "complete", insight: true, cleanable: true },
-  { name: "pnpm store", path: `${HOME}/Library/pnpm/store`, size: 8.0 * GIB, is_dir: true, scan_status: "complete", insight: true },
-  { name: "Maven repository", path: `${HOME}/.m2/repository`, size: 1.2 * GIB, is_dir: true, scan_status: "complete" },
-  { name: "Xcode DerivedData", path: `${HOME}/Library/Developer/Xcode/DerivedData`, size: 1.1 * GIB, is_dir: true, scan_status: "complete", insight: true, cleanable: true },
-  { name: "Hugging Face cache", path: `${HOME}/.cache/huggingface`, size: 2.7 * GIB, is_dir: true, scan_status: "complete" },
+  { name: "System Logs", path: `${HOME}/Library/Logs`, size: 0.44 * GIB, is_dir: true, scan_status: "complete", insight: true, cleanable: true },
+  { name: "Xcode Simulators", path: `${HOME}/Library/Developer/CoreSimulator/Devices`, size: 0.19 * GIB, is_dir: true, scan_status: "complete", insight: true },
 ];
 
 const childrenByDir = (path: string): SpaceEntry[] => {
@@ -194,12 +194,15 @@ const apps: AppEntry[] = [
   ["QuickRecorder", "com.lihaoyun6.QuickRecorder", "App"],
   ["calibre", "net.kovidgoyal.calibre", "Homebrew"],
   ["AeroSpace", "bobko.aerospace", "Homebrew"],
+  ["Long Path Example", "com.example.long-path", "App"],
 ].map(([name, bundle, source]) => ({
   name,
   bundle_id: bundle,
   source,
   uninstall_name: source === "Homebrew" ? name.toLowerCase() : name,
-  path: `/Applications/${name}.app`,
+  path: name === "Long Path Example"
+    ? "/Users/ray/Library/Application Support/Some Very Long Vendor Name/Some Very Long Application Name.app"
+    : `/Applications/${name}.app`,
   size: "--",
 }));
 
@@ -314,7 +317,7 @@ export const mockApi = {
   },
   analyze(path: string | null): Promise<SpaceReport> {
     if (!path || path === "/") {
-      return Promise.resolve({ scan_status: "partial", path: "/", overview: true, entries: overviewEntries, total_size: 194 * GIB });
+      return Promise.resolve({ scan_status: "partial", path: "/", overview: true, entries: overviewEntries, total_size: 228.19 * GIB });
     }
     return Promise.resolve({ scan_status: "complete", path, overview: false, entries: childrenByDir(path), total_size: 18 * GIB });
   },

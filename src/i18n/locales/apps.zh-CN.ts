@@ -6,7 +6,7 @@ export default {
   source: "来源",
   bundle: "Bundle ID",
   path: "路径",
-  uninstall: "清理安装",
+  uninstall: "卸载",
   uninstallHint: "在终端中打开 Mole 的卸载流程",
   reveal: "在 Finder 中显示",
   copyCommand: "复制命令",
@@ -18,4 +18,5 @@ export default {
   loading: "正在读取应用列表…",
   note: "Mole 的卸载器会列出 LaunchAgents、偏好设置与残留供你逐项确认，因此交给终端运行更安全。",
   refresh: "刷新",
+  action: "操作",
 };

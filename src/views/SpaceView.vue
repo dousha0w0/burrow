@@ -229,8 +229,8 @@ onMounted(() => {
                 </div>
                 <div class="panel-body panel-body--flush">
                   <Treemap
-                    :entries="space.entries"
-                    :total="space.totalSize"
+                    :entries="space.topLevel"
+                    :total="space.topLevelTotal"
                     @drill="drillEntry"
                   />
                 </div>
@@ -240,6 +240,13 @@ onMounted(() => {
                 <div class="panel-head">
                   <span class="section-label">{{ $t("space.total") }} {{ formatBytes(space.totalSize) }}</span>
                   <span class="panel-hint num">{{ $t("space.entries", { n: space.entries.length }) }}</span>
+                  <span
+                    v-if="space.nestedTotal > 0"
+                    class="badge"
+                    :title="$t('space.shareHint')"
+                  >
+                    {{ $t("space.overlap", { size: formatBytes(space.nestedTotal) }) }}
+                  </span>
                   <div class="flex-1" />
                   <Segmented
                     compact
@@ -257,7 +264,7 @@ onMounted(() => {
                     <div class="file-table__head-cell file-table__cell--num col-size">
                       <span>{{ $t("space.size") }}</span>
                     </div>
-                    <div class="file-table__head-cell col-share">
+                    <div class="file-table__head-cell col-share" :title="$t('space.shareHint')">
                       <span>{{ $t("space.share") }}</span>
                     </div>
                     <div class="file-table__head-cell col-kind">
@@ -292,12 +299,22 @@ onMounted(() => {
                         <span class="num">{{ formatBytes(entry.size) }}</span>
                       </div>
                       <div class="file-table__cell col-share">
-                        <div class="min-w-0 flex-1">
-                          <ProgressBar :value="shareOf(entry)" :height="4" />
-                        </div>
-                        <span class="num w-9 shrink-0 text-right text-[11px] text-muted-foreground">
-                          {{ percentOf(entry) }}
-                        </span>
+                        <template v-if="space.parentOf(entry)">
+                          <span
+                            class="badge shrink-0"
+                            :title="$t('space.inParentHint', { name: space.parentOf(entry)?.name })"
+                          >
+                            {{ $t("space.inParent", { name: space.parentOf(entry)?.name }) }}
+                          </span>
+                        </template>
+                        <template v-else>
+                          <div class="min-w-0 flex-1">
+                            <ProgressBar :value="shareOf(entry)" :height="4" />
+                          </div>
+                          <span class="num w-9 shrink-0 text-right text-[11px] text-muted-foreground">
+                            {{ percentOf(entry) }}
+                          </span>
+                        </template>
                       </div>
                       <div class="file-table__cell file-table__cell--muted col-kind">
                         <span>{{ entry.is_dir ? $t("space.folder") : $t("space.file") }}</span>

@@ -18,4 +18,5 @@ export default {
   loading: "Reading installed apps…",
   note: "Mole's uninstaller lists LaunchAgents, preferences and leftovers for per-item confirmation, so Terminal is the safe surface for it.",
   refresh: "Refresh",
+  action: "Action",
 };

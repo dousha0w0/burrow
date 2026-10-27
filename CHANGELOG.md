@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+- **修复「占比」把同一块空间算两次**：Mole 的整机概览会把 `~/Library`、各类缓存与 `Home` 并排列出。顶层项现在按去重后的顶层合计计算（合计 100%），嵌套项显示 `⊂ Home` 且不参与顶层占比，列表头标注「其中 N GB 嵌套于父级」；矩形分布图也只画顶层项。逻辑抽到 `src/lib/space-share.ts` 并配了基于真实引擎输出的测试。
+- **修复 Homebrew 来源识别**：GUI 启动时继承 launchd 的最小 PATH，`brew` 不可见，导致「应用」页把 Homebrew 应用全部标成 `App`（截图里的「0 个来自 Homebrew」）。引擎子进程现在会补上 `/opt/homebrew/bin`、`/usr/local/bin` 等常见前缀。
+- **应用页卸载按钮显示文字**：图标按钮改为「卸载」，列头从「应用」改为「操作」；Bundle ID 过长时悬停可看全。
+
 ## 0.1.2
 
 - **修复**：设置页「打开系统设置」按钮点了没反应。原因是 `open_privacy_settings` 没有注册进 Tauri 的 `generate_handler!`，webview 侧收到 `Command open_privacy_settings not found` 又被静默吞掉。

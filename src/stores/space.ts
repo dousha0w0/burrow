@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { api } from "@/lib/bridge";
+import { indexShares } from "@/lib/space-share";
 import type { SpaceEntry, SpaceReport } from "@/types/mole";
 
 export type SpaceSort = "size" | "name";
@@ -66,8 +67,18 @@ export const useSpaceStore = defineStore("space", () => {
   const largest = computed(() => Math.max(1, ...entries.value.map((entry) => entry.size)));
   const canGoUp = computed(() => history.value.length > 0);
 
+  /** Nested rows are measured against their parent, not the flat total. */
+  const shares = computed(() => indexShares(entries.value, totalSize.value));
+  const topLevel = computed(() => shares.value.topLevel);
+  const topLevelTotal = computed(() => shares.value.topLevelTotal);
+  const nestedTotal = computed(() => shares.value.nestedTotal);
+
+  function parentOf(entry: SpaceEntry): SpaceEntry | null {
+    return shares.value.parentOf(entry);
+  }
+
   function share(entry: SpaceEntry): number {
-    return totalSize.value > 0 ? (entry.size / totalSize.value) * 100 : 0;
+    return shares.value.share(entry);
   }
 
   return {
@@ -79,8 +90,12 @@ export const useSpaceStore = defineStore("space", () => {
     history,
     entries,
     totalSize,
+    topLevel,
+    topLevelTotal,
+    nestedTotal,
     largest,
     canGoUp,
+    parentOf,
     open,
     drill,
     up,

@@ -85,10 +85,10 @@ watch(
 
       <div class="file-table__head mx-0">
         <div class="file-table__cell file-table__name flex-[1.5]">{{ $t("apps.name") }}</div>
-        <div class="file-table__cell w-[96px]">{{ $t("apps.source") }}</div>
+        <div class="file-table__cell w-[96px] shrink-0">{{ $t("apps.source") }}</div>
         <div class="file-table__cell flex-[1.4]">{{ $t("apps.bundle") }}</div>
         <div class="file-table__cell flex-[1.7]">{{ $t("apps.path") }}</div>
-        <div class="file-table__cell w-[92px] justify-end">{{ $t("nav.apps") }}</div>
+        <div class="file-table__cell w-[96px] shrink-0 justify-end">{{ $t("apps.action") }}</div>
       </div>
 
       <div v-if="apps.loading && apps.entries.length === 0" class="empty-state">
@@ -114,19 +114,21 @@ watch(
         >
           <div class="file-table__cell file-table__name flex-[1.5]">
             <Icon name="grid" :size="13" class="text-muted-foreground" />
-            <span class="truncate">{{ entry.name }}</span>
+            <span class="min-w-0 flex-1 truncate">{{ entry.name }}</span>
           </div>
-          <div class="file-table__cell w-[96px]">
+          <div class="file-table__cell w-[96px] shrink-0">
             <span class="badge" :data-tone="entry.source === 'Homebrew' ? 'accent' : undefined">{{ entry.source }}</span>
           </div>
           <div class="file-table__cell flex-[1.4] font-mono text-[11px] text-muted-foreground">
-            <span class="truncate">{{ entry.bundle_id || "—" }}</span>
+            <span class="min-w-0 flex-1 truncate" :title="entry.bundle_id">{{ entry.bundle_id || "—" }}</span>
           </div>
           <div class="file-table__cell flex-[1.7] text-[11.5px] text-muted-foreground">
-            <span class="truncate">{{ entry.path }}</span>
+            <span class="min-w-0 flex-1 truncate" :title="entry.path">{{ entry.path }}</span>
           </div>
-          <div class="file-table__cell w-[92px] justify-end">
-            <AppButton size="xs" variant="ghost" icon="terminal" :title="$t('apps.uninstallHint')" @click="uninstall(entry)" />
+          <div class="file-table__cell w-[96px] shrink-0 justify-end">
+            <AppButton size="xs" variant="secondary" icon="terminal" :title="$t('apps.uninstallHint')" @click="uninstall(entry)">
+              {{ $t("apps.uninstall") }}
+            </AppButton>
           </div>
         </div>
       </div>

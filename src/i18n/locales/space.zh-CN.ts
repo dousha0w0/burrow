@@ -24,4 +24,8 @@ export default {
   treemap: "占用分布",
   pickFolder: "选择文件夹",
   pickerUnavailable: "文件夹选择仅在桌面版可用",
+  inParent: "⊂ {name}",
+  overlap: "其中 {size} 嵌套于父级",
+  shareHint: "嵌套项按父级计算占比；顶层项合计 100%。",
+  inParentHint: "已包含在 {name} 内，不参与顶层占比",
 };

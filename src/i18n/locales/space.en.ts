@@ -24,4 +24,8 @@ export default {
   treemap: "Distribution",
   pickFolder: "Choose folder",
   pickerUnavailable: "Choosing a folder is available in the desktop app",
+  inParent: "⊂ {name}",
+  overlap: "{size} nested inside a parent",
+  shareHint: "Nested rows are measured against their parent; top-level rows sum to 100%.",
+  inParentHint: "Included in {name}; excluded from the top-level share",
 };
